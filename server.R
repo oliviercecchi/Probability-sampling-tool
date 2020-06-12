@@ -8,7 +8,7 @@ function(input, output, session) {
 		}else if (is.null(inFile)){
 			return(NULL)
 		}else{
-			read.csv(inFile$datapath)
+			read.csv(inFile$datapath,sep=input$sep)
 		}
 	})
   
