@@ -1,3 +1,4 @@
+require(data.table)
 require(plyr)
 require(dplyr)
 require(car)
@@ -31,7 +32,7 @@ create_sampling_frame<-function(cens,input){
     cens$pop_numbers<-rep(1,nrow(cens))
   }
   
-  sumdist<-plyr::ddply(cens, .(strata_id), summarise, SumDist = sum(pop_numbers,na.rm=T))
+  sumdist<-cens %>% dplyr::group_by(strata_id) %>%  dplyr::summarise(SumDist = sum(pop_numbers,na.rm=T))
   cens<-merge(cens,sumdist,by="strata_id")
   proba<-as.numeric(cens$pop_numbers)/as.numeric(cens$SumDist)
   cens<-cbind(cens,proba)

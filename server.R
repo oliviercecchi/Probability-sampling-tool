@@ -4,11 +4,11 @@ function(input, output, session) {
    db <- reactive({
 		inFile <- input$popdata
 		if(input$testdata==TRUE){
-			read.csv("data_example.csv")
+			fread("data_example.csv")
 		}else if (is.null(inFile)){
 			return(NULL)
 		}else{
-			read.csv(inFile$datapath,sep=input$sep)
+			fread(inFile$datapath) 
 		}
 	})
   

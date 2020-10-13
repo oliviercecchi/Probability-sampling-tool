@@ -98,9 +98,7 @@ navbarPage("Probability sampling tool",
 				h4("Set up sampling frame",style="color:#707070;background-color:#f8f8f8"),
 			    column(6,
 					conditionalPanel(condition = "!input.testdata",
-					  radioButtons('sep', 'Separator',c(Comma=',',Semicolon=';',Tab='\t'),'Comma'),
 						fileInput('popdata', 'Choose CSV file',accept=c('text/csv', 'text/comma-separated-values,text/plain'))
-						
 					),
 					checkboxInput("testdata", "Use test data", FALSE),
 					conditionalPanel(condition = "input.samp_type == 'Cluster sampling'",
