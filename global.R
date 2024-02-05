@@ -8,6 +8,8 @@ library(shiny)
 library(shinyjs)
 library(crayon)
 
+options(shiny.maxRequestSize=30*1024^2)
+
 Ssize<-function (x,A,p,E) {(qchisq(A,1)*x*p*(1-p)) / (E^2*(x-1)+qchisq(A,df=1)*p*(1-p))}
 
 humanTime <- function() format(Sys.time(), "%Y%m%d-%H%M%OS")
@@ -24,9 +26,11 @@ create_sampling_frame<-function(cens,input){
   if(input$samp_type=="Cluster sampling"){
     cens$psu_id<-cens[[as.character(input$col_psu)]]
     cens$pop_numbers<-cens[[as.character(input$colpop)]]
+	
   }else if(input$samp_type=="2 stages random - st1"){
     cens$psu_id<-cens$id_sampl
     cens$pop_numbers<-cens[[as.character(input$colpop)]]
+  
   }else{
     cens$psu_id<-cens$id_sampl
     cens$pop_numbers<-rep(1,nrow(cens))
