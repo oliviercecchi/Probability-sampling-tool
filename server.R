@@ -1,3 +1,6 @@
+# This function is the server logic for the Probability Sampling Tool application.
+# It defines the reactive behavior and output rendering for the user interface.
+
 function(input, output, session) {
   
   # get the data
@@ -24,6 +27,7 @@ function(input, output, session) {
 		cens<-create_sampling_frame(db(),input)
 	})
 	
+	# create the target sampling size by strata
 	cible<-eventReactive(input$f_apply,{
 	  if(input$topup=="Enter sample size"){
 	    plyr::ddply(frame(),"strata_id", summarise, 
@@ -53,7 +57,7 @@ function(input, output, session) {
 		  options = list(searching = FALSE, lengthChange = F)
 	)
 	
-  # sample	
+  # create the sample
   out<-eventReactive(input$desButton,{
 
 		cens<-frame()
@@ -158,7 +162,7 @@ function(input, output, session) {
 
   })
   	
-  # diplay
+  # diplay the results
   
 	output$sampling_output <- DT::renderDataTable(
 		  out()[[1]],
@@ -203,8 +207,5 @@ function(input, output, session) {
 		}
 	)		
 	
-
-	
 	
 }
-
