@@ -21,7 +21,7 @@ navbarPage("Probability sampling tool",
 					h2("Type of sampling"),
 				
 						p(strong("Random sampling:"),"Simple Random sampling, a random sample directly from the sampling frame which consists of every unit in the population of interest, thus ensuring equal probability of each unit to be selected."),
-						p(strong("2 stages random - st1:"),"First stage of 2 stages random sampling. Units (PSUs) are first randomly selected with probabilities based on population size to ensure equal probability of each unit (e.g. households) during the second stage to be selected."),
+						p(strong("Simple random - allocation:"),"Allocates surveys based on the size of the unit provided (e.g. cities), to use if the information about each unit of analysis is missing."),
 						p(strong("Cluster sampling:"),"Clusters, or Primary Sampling Units (PSUs), are first randomly selected, before a set number of units (e.g. households) at each cluster is randomly selected."),
 						p(strong("Stratified:"),"If ticked, a variable characterizing the stratification of the sampling will be ask to stratify the sample."),
 					
@@ -60,7 +60,7 @@ navbarPage("Probability sampling tool",
   		   selectInput("topup", "Mode of sampling", c("Enter sample size","Sample size based on population"),"Sample size based on population")
   		),
 			column(2,						
-				selectInput("samp_type", "Type of sampling", c("Simple random","2 stages random - st1","Cluster sampling"))
+				selectInput("samp_type", "Type of sampling", c("Simple random","Simple random - allocation","Cluster sampling"))
 			),
 			column(2,
 			  selectInput("stratified", "Stratified ?", c("Not stratified","Stratified"))
@@ -108,7 +108,7 @@ navbarPage("Probability sampling tool",
 					conditionalPanel(condition = "input.stratified=='Stratified'",
 						selectInput('strata', 'Input strata', choices = NULL, multiple = F)
 					),
-					conditionalPanel(condition = "input.samp_type == 'Cluster sampling'|input.samp_type =='2 stages random - st1'",
+					conditionalPanel(condition = "input.samp_type == 'Cluster sampling'|input.samp_type =='Simple random - allocation'",
 						selectInput('colpop', 'Input population', choices = NULL)
 					)
 				)
